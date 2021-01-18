@@ -62,10 +62,6 @@ app.listen(PORT, () => {
 
 * Github: [@CarterWilde](https://github.com/CarterWilde)
 
-## Show your support
-
-Give a ⭐️ if this project helped you!
-
 ## 📝 License
 
 Copyright © 2021 [Carter J. Wilde](https://github.com/CarterWilde).<br />
