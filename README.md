@@ -19,7 +19,8 @@
 ## Install
 
 ```sh
-npm install dobject-routing
+npm install dobject-routing express
+npm install --save-dev @types/express
 ```
 
 ## Usage
@@ -45,12 +46,15 @@ export default routes;
 ```
 Finally, import and use the package as an example
 ```ts
-import express, { Router } from 'express';
+import express from 'express';
 import Routing from "dobject-routing";
 import routes from './routes';
 
 const app: express.Application = express();
+const PORT: number = 8080;
+
 app.use('/', Routing(routes));
+
 app.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT}`);
 });
