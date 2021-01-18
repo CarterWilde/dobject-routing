@@ -1,6 +1,6 @@
 {
   "name": "dobject-routing",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Use an object to declare your express routing.",
   "main": "dist/Main.js",
   "types": "dist/Main.d.ts",
