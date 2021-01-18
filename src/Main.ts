@@ -1,6 +1,6 @@
 import { Router } from "express";
-import IRoute from "./IRoute";
-import IRouter from "./IRouter";
+import {IRoute} from "./IRoute";
+import {IRouter} from "./IRouter";
 
 const prop = (obj:any, key:any) => {
     return obj[key].bind(obj);
@@ -40,4 +40,9 @@ const buildRouting = (...routers: Array<IRouter>) : Router => {
     return router;
 }
 
-export default buildRoutes;
+export * from "./ERequestType";
+export * from "./IMiddleware";
+export * from "./IRoute";
+export * from "./IRouter";
+
+export default buildRouting;

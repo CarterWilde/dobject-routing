@@ -1,7 +1,7 @@
-import IMiddleware from "./IMiddleware";
-import IRoute from "./IRoute";
+import {IMiddleware} from "./IMiddleware";
+import {IRoute} from "./IRoute";
 
-export default interface IRouter {
+export interface IRouter {
     url?: string;
     middleware?: Array<IMiddleware>;
     routers?: Array<IRouter>;
