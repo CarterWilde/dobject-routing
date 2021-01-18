@@ -12,7 +12,7 @@
     "prepublish": "tsc"
   },
   "author": "Carter J. Wilde",
-  "license": "ISC",
+  "license": "gpl-3.0",
   "devDependencies": {
     "@types/express": "^4.17.9",
     "@types/node": "^14.14.20",
