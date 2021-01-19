@@ -21,25 +21,28 @@ const buildRoutes = (router: Router, ...routes: Array<IRoute>): void => {
 }
 
 const buildRouting = (...routers: Array<IRouter>): Router => {
-    let router: Router = Router();
+    let mainRouter: Router = Router();
 
-    routers.forEach(route => {
+    routers.forEach(router => {
         let subRouter = Router();
 
-        route.middleware?.forEach(middle => {
+        router.middleware?.forEach(middle => {
             subRouter.use(middle.handler);
         });
+        router.routes = router.routes.map(route => {
+            route.url = router.url || '/' + route.url;
+            return route;
+        })
+        buildRoutes(subRouter, ...router.routes);
 
-        buildRoutes(subRouter, ...route.routes);
-
-        if (route.routers) {
-            subRouter.use(buildRouting(...route.routers));
+        if (router.routers) {
+            subRouter.use(buildRouting(...router.routers));
         }
 
-        router.use(route.url || '/', subRouter);
+        mainRouter.use(router.url || '/', subRouter);
     });
 
-    return router;
+    return mainRouter;
 }
 
 export * from "./ERequestType";
