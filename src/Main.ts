@@ -8,19 +8,18 @@ const prop = (obj: any, key: any) => {
 
 const buildRoutes = (router: Router, ...routes: Array<IRoute>): void => {
     routes.forEach(endpoint => {
-        let url: string = endpoint.url || '/';
-        console.log("Route created:" + url);
-        prop(router, endpoint.method.toLowerCase())(url, endpoint.handlers);
+        console.log("Route created:" + (endpoint.url || '/'));
+        prop(router, endpoint.method.toLowerCase())(endpoint.url || '/', endpoint.handlers);
         if (endpoint.routes) {
             endpoint.routes.forEach(route => {
-                route.url = url + route.url;
+                route.url = (endpoint.url ? endpoint.url : '') + (route.url || '/');
             })
             buildRoutes(router, ...endpoint.routes);
         }
     });
 }
 
-const buildRouting = (...routers: Array<IRouter>): Router => {
+const buildRouting = (routers: Array<IRouter>, parentUrl?:string): Router => {
     let mainRouter: Router = Router();
 
     routers.forEach(router => {
@@ -29,14 +28,11 @@ const buildRouting = (...routers: Array<IRouter>): Router => {
         router.middleware?.forEach(middle => {
             subRouter.use(middle.handler);
         });
-        router.routes = router.routes.map(route => {
-            route.url = (router.url || '/') + (route.url || '');
-            return route;
-        })
         buildRoutes(subRouter, ...router.routes);
 
         if (router.routers) {
-            subRouter.use(buildRouting(...router.routers));
+            console.log("Router Created:" + (parentUrl || '') + (router.url || '/'));
+            subRouter.use(buildRouting(router.routers, router.url));
         }
 
         mainRouter.use(router.url || '/', subRouter);
