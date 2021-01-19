@@ -30,7 +30,7 @@ const buildRouting = (...routers: Array<IRouter>): Router => {
             subRouter.use(middle.handler);
         });
         router.routes = router.routes.map(route => {
-            route.url = (router.url || '/') + route.url;
+            route.url = (router.url || '/') + (route.url || '');
             return route;
         })
         buildRoutes(subRouter, ...router.routes);
