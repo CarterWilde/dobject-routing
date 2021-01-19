@@ -8,7 +8,6 @@ const prop = (obj: any, key: any) => {
 
 const buildRoutes = (router: Router, ...routes: Array<IRoute>): void => {
     routes.forEach(endpoint => {
-        console.log("Route created:" + (endpoint.url || '/'));
         prop(router, endpoint.method.toLowerCase())(endpoint.url || '/', endpoint.handlers);
         if (endpoint.routes) {
             endpoint.routes.forEach(route => {
