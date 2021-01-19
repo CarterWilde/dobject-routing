@@ -9,7 +9,7 @@ const prop = (obj: any, key: any) => {
 const buildRoutes = (router: Router, ...routes: Array<IRoute>): void => {
     routes.forEach(endpoint => {
         let url: string = endpoint.url || '/';
-        console.log("Route created:" + url, routes);
+        console.log("Route created:" + url);
         prop(router, endpoint.method.toLowerCase())(url, endpoint.handlers);
         if (endpoint.routes) {
             endpoint.routes.forEach(route => {
@@ -30,7 +30,7 @@ const buildRouting = (...routers: Array<IRouter>): Router => {
             subRouter.use(middle.handler);
         });
         router.routes = router.routes.map(route => {
-            route.url = router.url || '/' + route.url;
+            route.url = (router.url || '/') + route.url;
             return route;
         })
         buildRoutes(subRouter, ...router.routes);
